@@ -1,0 +1,29 @@
+<h4 class='d-flex justify-content-between mb-4'>
+  <span>Posts</span>
+  <%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
+</h4>
+
+<% @posts.each do |post| %>
+  <%= link_to edit_post_path(post), class: 'text-decoration-none' do %>
+    <div class="card mb-3 post-card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-2">
+            <% if post.header_image.present? %>
+              <div class="header-img" style="background-image: url(<%= url_for(post.header_image) %>);"></div>
+            <% end %>
+          </div>
+          <div class="col-md-10">
+            <% if post.published? %>
+              <span class='badge badge-primary mb-3'>Published</span>
+            <% else %>
+              <span class='badge badge-secondary mb-3'>Unpublished</span>
+            <% end %>
+            <h5 class='card-title mb-2 text-dark'><%= post.title %></h5>
+            <p class='text-secondary mb-0'><%= post.description %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
