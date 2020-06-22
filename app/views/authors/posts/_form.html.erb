@@ -1,4 +1,4 @@
-<%= form_with(model: post, local: true) do |form| %>
+<%= form_with(model: post) do |form| %>
   <% if post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -23,10 +23,10 @@
 
   <div class="form-group">
     <%= form.label :header_image %>
-    <%= form.file_field :header_image, class: 'form-control' %>
+    <%= form.file_field :header_image %>
     <div class="mt-1">
-      <small>Current image:</small>
       <% if post.header_image.present? %>
+        <small>Current image:</small>
         <%= image_tag(post.header_image, width: '100%') %>
       <% end%>
     </div>
