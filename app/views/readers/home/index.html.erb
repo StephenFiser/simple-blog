@@ -1,0 +1,14 @@
+<div class="row">
+  <% @posts.each do |post| %>
+    <div class="col-md-6 col-lg-4">
+      <div class="card post-card">
+        <div class="header-image" style="background-image: url(<%= url_for(post.header_image) %>)"></div>
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title"><%= post.title %></h5>
+          <p class="card-text"><%= truncate(post.description, length: 250) %></p>
+          <%= link_to "Read Post", blog_post_path(post), class: 'btn btn-primary mt-auto' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
