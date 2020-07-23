@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_24_231851) do
+ActiveRecord::Schema.define(version: 2020_07_17_195926) do
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -73,6 +73,32 @@ ActiveRecord::Schema.define(version: 2020_06_24_231851) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "impressions", force: :cascade do |t|
+    t.string "impressionable_type"
+    t.integer "impressionable_id"
+    t.integer "user_id"
+    t.string "controller_name"
+    t.string "action_name"
+    t.string "view_name"
+    t.string "request_hash"
+    t.string "ip_address"
+    t.string "session_hash"
+    t.text "message"
+    t.text "referrer"
+    t.text "params"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["controller_name", "action_name", "ip_address"], name: "controlleraction_ip_index"
+    t.index ["controller_name", "action_name", "request_hash"], name: "controlleraction_request_index"
+    t.index ["controller_name", "action_name", "session_hash"], name: "controlleraction_session_index"
+    t.index ["impressionable_type", "impressionable_id", "ip_address"], name: "poly_ip_index"
+    t.index ["impressionable_type", "impressionable_id", "params"], name: "poly_params_request_index"
+    t.index ["impressionable_type", "impressionable_id", "request_hash"], name: "poly_request_index"
+    t.index ["impressionable_type", "impressionable_id", "session_hash"], name: "poly_session_index"
+    t.index ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index"
+    t.index ["user_id"], name: "index_impressions_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
